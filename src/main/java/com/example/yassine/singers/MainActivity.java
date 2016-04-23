@@ -25,6 +25,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+/*Our main activity*/
 public class MainActivity extends Activity {
 
 
@@ -33,11 +34,11 @@ public class MainActivity extends Activity {
     private static final String fileName_cache = "json_cache";
     private ArrayList<Artist> artistsList;
 
-
     /*
         This class performs the following background operations:
-            1 - make a web request to get the JSON text.
+            1 - make a web request to get the JSON text.(if the returned text is null or empty, we get the cached data.)
             2 - parse the obtained JSON text into our array.
+            3 - at the end, it sets a list adapter for our list view, and set a listener for list's items.
      */
     public class ArtistsGetter extends AsyncTask<Void, Void, Void> {
 
@@ -120,7 +121,7 @@ public class MainActivity extends Activity {
                         link = ob.getString("link");
                     }
                     catch(Exception e) {
-
+                        Log.d(TAG, e.getMessage());
                     }
 
                     Artist artist = new Artist.ArtistBuilder(id, name)
@@ -170,12 +171,10 @@ public class MainActivity extends Activity {
                     startActivity(i);
                 }
             });
-
-
-
-
         }
     }
+
+    /*A simple class that we use for caching (we used the serializable approach)*/
     private static class CacheHelper {
 
         public static void writeObject(Context context, String fileName, Object object) throws IOException {

@@ -14,6 +14,8 @@ import javax.net.ssl.HttpsURLConnection;
 /**
  * Created by yassine on 16.04.16.
  */
+
+/*A class that encapsulate the proces of web requesting*/
 public class WebRequest {
 
     private static final String TAG = "WebRequest";
@@ -21,6 +23,7 @@ public class WebRequest {
 
     public WebRequest() {}
 
+    /* The method that returns the json text */
     public String makeWebRequest(String urlAddress) {
 
         URL url;
